@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODOS</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        .line {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div style="width:500px;margin:50px auto;">
+            <h1>Todos</h1>
+            <add style="margin-bottom: 20px;"></add>
+            <list></list>
+        </div>
+    </div>
+
+    <template id="add">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for..." v-model="value">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" @click="add">Add</button>
+            </span>
+        </div>
+    </template>
+    <template id="list">
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item" v-for="item,key in list" :id="key">
+                    <input type="checkbox" v-model="item.done" style="margin-right: 10px;">
+                    <input ref="ipt" type="text" v-model="newValue" @blur="blur(key)" v-show="item.isShow">
+                    <span v-if="!item.isShow" :class="item.done?'line':''" @dblclick="edit(key)">
+                        {{item.info}}
+                    </span>
+                    <button type="button" class="btn btn-danger pull-right btn-xs" @click="del(key)">Delete</button>
+                </li>
+            </ul>
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script src="js/vuex.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
